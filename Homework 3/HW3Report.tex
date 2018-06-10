@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in, paperwidth=8.5in, paperheight=11in]{geometry}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{sidecap}
+\usepackage{caption}
+\usepackage[table,xcdraw]{xcolor}
+
+\begin{document}
+\begin{center}
+Jeffrey Rodriguez 110733867\\AMS 326\\Report 3\\3/30/2018\\
+
+\end{center}
+
+\section*{3.2}
+This problem requests that we find the time in which a person died, given that they were found in a refrigerated warehouse at midnight with body temperature 91.11F. Another condition is that two hours later, the temperature drops to 66.66F. 
+\\To find the time of death, we first perform the Runge-Kutta method on the differential equation 
+$\frac{DT}{dt} = f(t,T) = C(A-T)$, with $A$ = 33.33, the temperature of the warehouse. First, we set the initial value to be 91.11F. The value of $C$ (the cooling constant) is not known, so we must approximate it. This is done by guessing values of $C$ such that the output of the Runge-Kutta method will be some values around the point 66.66F. 
+\\To perform the Runge-Kutta method, we define values: $$k_1 = f(t_i,T_i),k_2 = f(t_i + \frac{1}{2}h, T_i + \frac{1}{2}h k_1), k_3 = f(t_i + \frac{1}{2}h, T_i + \frac{1}{2}h k_2), k_4 = f(t_i + h,T_i + h k_3)$$
+\\Then define $m = \frac{1}{6}(k_1 + 2(k_2+k_3) + k_4)$, and set $t_{i+1} = t_i + h$, $T_{i+1} = T_i + m$ for each iteration.
+\\Next, we perform a 2nd order linear interpolation with 3 guessed values of $C$, giving a quadratic equation, so that we can find when the the temperature is 66.66F.
+\\Finally, with this new estimated $C$ value, we can determine the initial time of death by repeating the Runge-Kutta method, now with the initial value set to 98.88F. The last step is to then compute the time at which the temperature will reach 44.44F, which can be done by keeping a counter incremented with i, until $T_i(t) \approx 44.44$.
+\\To find $C$, we guess the three values to be $c_1 = 10^{-5.3},~c_2 = 10^{-5.325},~c_3=10^{-5.35}$, with temperatures roughly 64.9951, 66.0786, and 67.1354 respectively. 
+The interpolated curve is defined as $g(t) = 2.3566\cdot10^{11}t^2 - 6.1606\cdot10^6 t + 89.592$. Using numpy's 'roots' function, we find the two roots to be $2.1557\cdot10^{-5},~4.5848\cdot 10^{-6}$. The second root gives the desired temperature of 66.66F at 2AM.
+\\Evaluating this again, with the initial temperature set to 98.88 and using the new estimated $C$ value reveals that the body temperature reaches 91.11F roughly 27 minutes after death. So, the person must have died at 11:33 PM. The body reaches 44.44F after 387 minutes, or 6:00 AM.
+\\All of the above can be seen in the attached file, '326HW3-2.py'.
+
+\newpage
+\section*{3.3}
+The next problem contains models for two competing stocks as a system of coupled differential equations: $$x'(t) = f(t,x,y) = ax + bxy$$
+$$y'(t) = g(t,x,y) = cy + exy$$
+We define the step size $\Delta t= 0.0001$, and again perform the Runge-Kutta method. This time however, there are two dependent variables, so we define the following values:
+\\$k_1 = f(t_i,x_i,y_i),~ l_1 = g(t_i,x_i,y_i)
+\\k_2 = f(t_i + \frac{1}{2}\Delta t, x_i + \frac{1}{2}\Delta t k_1 ,y_i + \frac{1}{2}\Delta t l_1),~ l_2 = g(t_i + \frac{1}{2}\Delta t, x_i + \frac{1}{2}\Delta t k_1 ,y_i + \frac{1}{2}\Delta t l_1)
+\\k_3 = f(t_i + \frac{1}{2}\Delta t, x_i + \frac{1}{2}\Delta t k_2 ,y_i + \frac{1}{2}\Delta t l_2),~ l_3 = g(t_i + \frac{1}{2}\Delta t, x_i + \frac{1}{2}\Delta t k_2,y_i + \frac{1}{2}\Delta t l_2)
+\\k_4 = f(t_i +\Delta t, x_i + \Delta t k_3, y_i + \Delta t l_3),~l_4 = g(t_i + \Delta t, x_i + \Delta t k_3, y_i + \Delta t l_3)
+\\k = \frac{1}{6}(k_1 + 2(k_2 + k_3) + k_4),~
+l = \frac{1}{6}(l_1 + 2(l_2 + l_3) + l_4)$
+\\For each iteration, we set $t_{i+1} = t_i + \Delta t,~ x_{i+1} = x_i + \Delta t k,~ y_{i+1} = y_i + \Delta t l$. We set $t_0 = 0$, and loop through this process until $t = 11$. The first value of $y$ to be greater than $x$ is also stored in an array of size 1, to prevent multiple values from being stored.
+\\We find at this point that $x(11) = 213.2175$, $y(11) = 21.4518$.
+\\Next, for $t\in[0,11]$, we plot the phase diagram for $y(t)$ vs $x(t)$ as seen below:
+\begin{figure}[h]
+	\includegraphics*[scale=.7]{3plot.png}
+\end{figure}
+\\Furthermore, at time $t = 3.5695$, we find that $y(3.5695) = 323.6748 > x(3.5695) = 323.6514$.
+The code for this can be seen in the attached file, '326HW3-3.py'.
+
+\end{document}

@@ -1,0 +1,35 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in, paperwidth=8.5in, paperheight=11in]{geometry}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{sidecap}
+\usepackage{caption}
+\usepackage[table,xcdraw]{xcolor}
+
+\begin{document}
+\begin{center}
+Jeffrey Rodriguez 110733867\\AMS 326 Test 1 \\2/08/2018\\
+
+\end{center}
+
+\section*{Ti-j}
+\subsection*{Introduction}
+We wish to approximate the first five roots for the derivative of the sinc function. This is equivalent to $$f(x) = \frac{1}{x}(\cos(x)-\sin(x)/x)$$. This was plotting on Mathematica using the commands: 
+\\ \texttt{$f[x_] = 1/x (Cos[x] - Sinc[x])
+\\\text{Plot}[f[x], {x, -6\pi, 6 \pi}]$}
+The resulting graph is shown below:
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics*[scale=1]{dsincplot.png}
+	\end{center}
+\end{figure}
+\subsection*{Method}
+We see from the graph that the first root must be zero. Next, we see that by symmetry, for some root $x_0$, $-x_0$ must also be a root. Using the bisection method, we guess a point near the next root to be $x_0 = 4.49 \pm 0.005$. The next estimation is $x_0 = 7.7 \pm 0.05$.
+\\We use the bisection method on these points, and there negative points to find the roots via Python.
+\subsection*{Results}
+As stated previously, we can tell from the graph that there must be a root as $x$ approaches 0. As can be seen by running the attached code, the other four roots found via Python are $x = \pm4.493408203125$ following 9 iterations, and $x = \pm 7.725244140625$ after 10 iterations.
+\subsection*{Conclusion}
+The code runs fast, and we see that these values are close to 0. It should be easy to transfer this to another computer, and simply making $\epsilon$ smaller will allow for closer approximations.
+\end{document}

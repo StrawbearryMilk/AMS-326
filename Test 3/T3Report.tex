@@ -1,0 +1,28 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in, paperwidth=8.5in, paperheight=11in]{geometry}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{sidecap}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[table,xcdraw]{xcolor}
+
+\begin{document}
+\begin{center}
+Jeffrey Rodriguez 110733867\\AMS 326\\Test 3\\4/12/2018\\
+
+\end{center}
+\section*{Test 3-1}
+This problem asks us to consider a company with initial value \$10M, and final value \$100B after 13 years of trading. We are given $\sigma = 0.1473\%$ and time, and must first find $\mu$. After this, we will plot the stock values at the end of each year with respect to year. Next, we look at the value of the GDP, with mean $\mu = 0.03385\%$ and $\sigma = 0.01414$. Finally, we look for the time year where the GDP exceeds \$20.20T.
+\\We guess three values for $\mu$: 0.0027, 0.002725, 0.00275, and perform a quadratic interpolation with these points (similar to that in homework 2 and 3). After obtaining a polynomial and shifting it by -100B, we solve for the roots with a numpy command, and find $mu\approx0.0027122$. Next is the plot of NHA's stocks with respect to time.
+\begin{figure}[h]
+	\includegraphics*[scale = .7]{t3plot.png}
+\end{figure}
+\\On the next page is a plot of GDP values with respect to year again.
+\newpage
+\begin{figure}[h]
+	\includegraphics*[scale = .7]{t3plot2.png}
+\end{figure}
+\end{document}
